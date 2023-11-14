@@ -1,0 +1,15 @@
+
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.example</groupId>
+    <artifactId>my-maven-project</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <!-- https://mvnrepository.com/artifact/com.github.mauricioaniche/ck -->
+    <dependencies>
+<dependency>
+    <groupId>com.github.mauricioaniche</groupId>
+    <artifactId>ck</artifactId>
+    <version>0.6.3</version>
+</dependency>
+</dependencies>
+</project>
