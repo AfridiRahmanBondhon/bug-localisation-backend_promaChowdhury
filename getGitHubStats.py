@@ -9,6 +9,64 @@ import re
 import concurrent.futures
 
 
+def replace_pom(pom_file):
+    ET.register_namespace("", "http://maven.apache.org/POM/4.0.0")
+    tree = ET.parse(pom_file)
+    root = tree.getroot()
+
+    jacoco_plugin = ET.Element("plugin")
+
+    groupId = ET.Element("groupId")
+    groupId.text = "org.jacoco"
+    jacoco_plugin.append(groupId)
+
+    artifactId = ET.Element("artifactId")
+    artifactId.text = "jacoco-maven-plugin"
+    jacoco_plugin.append(artifactId)
+
+    version = ET.Element("version")
+    version.text = "0.7.9"
+    jacoco_plugin.append(version)
+
+    executions = ET.Element("executions")
+
+    execution1 = ET.Element("execution")
+    id1 = ET.Element("id")
+    id1.text = "default-prepare-agent"
+    execution1.append(id1)
+
+    goals1 = ET.Element("goals")
+    goal1 = ET.Element("goal")
+    goal1.text = "prepare-agent"
+    goals1.append(goal1)
+
+    execution1.append(goals1)
+    executions.append(execution1)
+
+    execution2 = ET.Element("execution")
+    id2 = ET.Element("id")
+    id2.text = "default-report"
+    execution2.append(id2)
+
+    goals2 = ET.Element("goals")
+    goal2 = ET.Element("goal")
+    goal2.text = "report"
+    goals2.append(goal2)
+
+    execution2.append(goals2)
+    executions.append(execution2)
+
+    jacoco_plugin.append(executions)
+
+    existing_build = root.find(".//{http://maven.apache.org/POM/4.0.0}build")
+
+    if existing_build is not None:
+        plugins = existing_build.find(".//{http://maven.apache.org/POM/4.0.0}plugins")
+        plugins.append(jacoco_plugin)
+
+    tree.write(pom_file)
+
+
 def get_java_files(directory_path):
     java_files = []
 
@@ -102,6 +160,21 @@ def aggregate_complexity():
             res["method_name"] = "unamed"
     return complexity
 
+def delete_files():
+        p = subprocess.Popen(
+        [
+            f"rm -rf "
+        ],
+        shell=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    output, stderr = p.communicate()
+    output = output.decode("utf-8")
+    shutil.copy(
+        "/Users/promachowdhury/Desktop/fast-projects/bug-localisation-backend/project/target/site/jacoco/jacoco.xml",
+        f"/Users/promachowdhury/Desktop/fast-projects/bug-localisation-backend/project/target/site/jacoco/{test_class}-{test_method}.xml",
+    )
 
 def get_git_repo(link):
     repo_url = link
@@ -122,19 +195,19 @@ def get_git_repo(link):
 
 def count_languages(link):
     get_git_repo(link)
+    replace_pom(
+        "/Users/promachowdhury/Desktop/fast-projects/bug-localisation-backend/project/pom.xml"
+    )
     directory_path = "project"
     try:
-        # Run cloc and capture its output
         cloc_output = subprocess.check_output(
             ["cloc", directory_path], universal_newlines=True
         )
 
-        # Extract code, comments, and blank lines counts using regular expressions
         language_lines = re.findall(
             r"^([A-Za-z]+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)", cloc_output, re.MULTILINE
         )
 
-        # Create a dictionary to store language names as keys and their corresponding line numbers as values
         language_line_counts = {}
         for language, files, blank, comment, code in language_lines:
             language_line_counts[language] = {
@@ -166,7 +239,7 @@ def count_lines_in_directory(directory_path):
             file_path = os.path.join(root, file_name)
             code_lines = count_lines_of_code(file_path)
             file_info[file_name] = code_lines
-    print(file_info)
+    # print(file_info)
     return file_info
 
 

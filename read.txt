@@ -7,7 +7,7 @@ java com.puppycrawl.tools.checkstyle.Main /Users/promachowdhury/Desktop/fast-pro
 
 mvn clean test -Dtest=TextNodeTest#testTextBean jacoco:report jacoco:report-aggregate -DdataFile=target/jacoco.exec
 
-mvn clean org.jacoco:jacoco-maven-plugin:0.8.8:prepare-agent  test -Dtest=TextNodeTest#testTextBean  verify org.jacoco:jacoco-maven-plugin:0.8.8:report
+mvn clean org.jacoco:jacoco-maven-plugin:0.8.8:prepare-agent  test -Dtest=AttributeTest#settersOnOrphanAttribute verify org.jacoco:jacoco-maven-plugin:0.8.8:report
 
 
-mvn clean  test -Dtest=TextNodeTest#testTextBean  
+mvn clean  test -Dtest=TextNodeTest#testTextBean  /Users/promachowdhury/Desktop/fast-projects/bug-localisation-backend/project/target/site/jacoco/jacoco.xml
