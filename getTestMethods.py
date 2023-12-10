@@ -5,6 +5,7 @@ import re
 import concurrent.futures
 import xml.etree.ElementTree as ET
 import shutil
+import json
 
 
 def find_test_methods(java_code):
@@ -94,13 +95,22 @@ def getCoverage(test):
     return {"class": test["class"], "method": test["method"], "coverage": coverage_dict}
 
 
+def process_test(test):
+    print(test)
+    return getCoverage(test)
+
+
 def getTestStats():
     tests = get_all_test_methods()
     test_stats = []
-    print(tests)
-    for test in tests[:6]:
+
+    for test in tests:
         print(test)
         test_stats.append(getCoverage(test))
+
+    # with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+    #     test_stats = list(executor.map(process_test, tests[:5]))
+    return test_stats
     # with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
     #     futures = [executor.submit(getCoverage, test) for test in tests[:5]]
 
@@ -111,5 +121,6 @@ def getTestStats():
     #             test_stats.extend(result)
     #         except Exception as e:
     #             test_stats.extend({"Error": str(e)})
-
+    with open("test_res.json", "w") as json_file:
+        json.dump(test_stats, json_file)
     return test_stats

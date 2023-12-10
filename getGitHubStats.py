@@ -6,7 +6,9 @@ import fnmatch
 import javalang
 import subprocess
 import re
+import xml.etree.ElementTree as ET
 import concurrent.futures
+
 
 
 def replace_pom(pom_file):
@@ -160,23 +162,36 @@ def aggregate_complexity():
             res["method_name"] = "unamed"
     return complexity
 
+
 def delete_files():
-        p = subprocess.Popen(
-        [
-            f"rm -rf "
-        ],
+    p = subprocess.Popen(
+        [f"rm -rf test_res.json"],
         shell=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
     )
     output, stderr = p.communicate()
     output = output.decode("utf-8")
-    shutil.copy(
-        "/Users/promachowdhury/Desktop/fast-projects/bug-localisation-backend/project/target/site/jacoco/jacoco.xml",
-        f"/Users/promachowdhury/Desktop/fast-projects/bug-localisation-backend/project/target/site/jacoco/{test_class}-{test_method}.xml",
+
+    p = subprocess.Popen(
+        [f"rm -rf bug_res.json"],
+        shell=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    output, stderr = p.communicate()
+    output = output.decode("utf-8")
+
+    p = subprocess.Popen(
+        [f"rm -rf project"],
+        shell=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
     )
 
+
 def get_git_repo(link):
+    delete_files()
     repo_url = link
 
     local_directory = "project"
@@ -194,10 +209,11 @@ def get_git_repo(link):
 
 
 def count_languages(link):
-    get_git_repo(link)
-    replace_pom(
-        "/Users/promachowdhury/Desktop/fast-projects/bug-localisation-backend/project/pom.xml"
-    )
+    if link != "":
+        get_git_repo(link)
+        replace_pom(
+            "/Users/promachowdhury/Desktop/fast-projects/bug-localisation-backend/project/pom.xml"
+        )
     directory_path = "project"
     try:
         cloc_output = subprocess.check_output(

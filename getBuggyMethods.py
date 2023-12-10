@@ -10,6 +10,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 import math
 import joblib
 import numpy
+import json
 
 
 def find_similarity(doc1, doc2):
@@ -193,12 +194,7 @@ def getBuggy():
     method_coverage_dict = {}
     tests_to_run = tests
 
-    tests_to_run = [
-        {
-            "class": "org.jsoup.nodes.AttributeTest",
-            "method": "booleanAttributesAreNotCaseSensitive",
-        }
-    ]
+    tests_to_run = tests
     for test in tests_to_run:
         run_jacoco(test_class=test["class"], test_method=test["method"])
 
@@ -264,6 +260,10 @@ def getBuggy():
             methods_suspicious.items(), key=lambda item: item[1]["susp"], reverse=True
         )
     )
+
+    with open("bug_res.json", "w") as json_file:
+        json.dump(sorted_dict, json_file)
+
     return sorted_dict
 
 
