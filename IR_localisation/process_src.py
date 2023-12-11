@@ -242,7 +242,7 @@ def preprocess_file_name(src_files):
 
 def process_src():
     src_files = src_parser(
-        "/Users/promachowdhury/Desktop/fast-projects/bug-localisation-backend/demo/src/main/"
+        "/Users/promachowdhury/Desktop/fast-projects/bug-localisation-backend/IR_localisation/project/src/main/"
     )
 
     # print(src_files.keys())
@@ -261,6 +261,3 @@ def process_src():
     json.dump(src_files, out_file, indent=6)
 
     out_file.close()
-
-
-

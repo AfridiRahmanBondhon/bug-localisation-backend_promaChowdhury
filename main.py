@@ -1,16 +1,28 @@
 from fastapi import FastAPI
 from fastapi import Request, Response
-from githubModel import Github, File
+from githubModel import Github, File, Limit
 from fastapi.middleware.cors import CORSMiddleware
 from getGitHubStats import count_languages, aggregate_complexity
 from fastapi.responses import FileResponse
 import os
-from getBuggyMethods import getBuggy
+from getBuggyMethods import getBuggy, get_all_test_methods
 from getTestMethods import getTestStats
 from fastapi.responses import StreamingResponse
 import time
 import asyncio
 import json
+from pydantic import BaseModel
+from typing import List
+
+
+class PayloadItem(BaseModel):
+    class_name: str
+    method_name: str
+
+
+class TestCases(BaseModel):
+    test_cases: List[PayloadItem]
+
 
 app = FastAPI()
 origins = ["http://localhost:3000"]
@@ -28,20 +40,36 @@ async def get_statistics(link: Github):
     return count_languages(link.link)
 
 
+@app.post("/get_all_test_cases")
+async def get_test_methods(res: Limit):
+    if res.limit == 0:
+        res.limit = 1
+    json_file_path = "all_test_cases.json"
+    if os.path.exists(json_file_path):
+        with open(json_file_path, "r") as json_file:
+            test_cases = json.load(json_file)
+    else:
+        test_cases = get_all_test_methods()
+
+    if 10 * (res.limit - 1) > len(test_cases):
+        return {"count": len(test_cases), "tests": test_cases[: len(test_cases)]}
+    else:
+        return {
+            "count": len(test_cases),
+            "tests": test_cases[(10 * (res.limit - 1)) : ((10 * (res.limit - 1)) + 10)],
+        }
+
+
 @app.post("/get_complexity")
 async def get_aggregate_complexity():
     return aggregate_complexity()
 
 
 @app.post("/get_test_methods")
-async def get_test_methods():
-    json_file_path = "test_res.json"
-    if os.path.exists(json_file_path):
-        with open(json_file_path, "r") as json_file:
-            json_content = json.load(json_file)
-        return json_content
-    else:
-        return getTestStats()
+async def get_test_methods(request: Request):
+    tests = await request.json()
+    # print(tests)
+    return getTestStats(tests["test_cases"])
 
 
 @app.post("/download-file")
@@ -55,15 +83,21 @@ def download_file(file: File):
     return FileResponse(file_path, filename=file_name)
 
 
-@app.post("/get_buggy_methods")
-def get_buggy_methods():
-    json_file_path = "bug_res.json"
+@app.post("/get_existing_test_results")
+def get_results():
+    json_file_path = "test_res.json"
     if os.path.exists(json_file_path):
         with open(json_file_path, "r") as json_file:
             json_content = json.load(json_file)
         return json_content
     else:
-        return getBuggy()
+        return []
+
+
+@app.post("/get_buggy_methods")
+async def get_buggy_methods(request: Request):
+    tests = await request.json()
+    return getBuggy(tests["test_cases"])
 
 
 test_cases = ["TestCase1", "TestCase2", "TestCase3"]
@@ -87,8 +121,7 @@ test_cases = ["TestCase1", "TestCase2", "TestCase3"]
 
 async def generate_test_results():
     for test_case in test_cases:
-        
-        test_result = f"Result for {test_case}: PASS"  
+        test_result = f"Result for {test_case}: PASS"
         yield f"data: {test_result}\n\n"
         await asyncio.sleep(1)  # Adjust as needed
 

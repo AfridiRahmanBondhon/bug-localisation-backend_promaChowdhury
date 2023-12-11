@@ -139,6 +139,8 @@ def get_all_test_methods():
                     "method": method,
                 }
             )
+    with open("all_test_cases.json", "w") as json_file:
+        json.dump(test_all_methods, json_file)
 
     return test_all_methods
 
@@ -188,7 +190,7 @@ def getScore(ef, ep, np, nf):
     return probability[0]
 
 
-def getBuggy():
+def getBuggy(tests):
     tests = get_all_test_methods()
     bug_stats = []
     method_coverage_dict = {}

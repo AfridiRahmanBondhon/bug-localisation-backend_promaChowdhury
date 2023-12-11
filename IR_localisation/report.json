@@ -1,4 +1,5 @@
 {
+      "real_summary": "StackOverflowError: `Element.data()` is executed recursively without checks",
       "summary": {
             "stemmed": [
                   "stackoverflowerror",

@@ -10,7 +10,6 @@ import xml.etree.ElementTree as ET
 import concurrent.futures
 
 
-
 def replace_pom(pom_file):
     ET.register_namespace("", "http://maven.apache.org/POM/4.0.0")
     tree = ET.parse(pom_file)
@@ -184,6 +183,12 @@ def delete_files():
 
     p = subprocess.Popen(
         [f"rm -rf project"],
+        shell=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    p = subprocess.Popen(
+        [f"rm -rf all_test_cases.json"],
         shell=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,

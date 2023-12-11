@@ -17,7 +17,7 @@ import json
 
 
 def extract_stack_traces(description):
-    regex = r"at (.*?)\((.*?)\)"
+    regex = r"(.*?)\((.*?)\)"
 
     matches = re.findall(regex, description)
     signs = [".java", "Unknown Source", "Native Method"]
@@ -139,6 +139,9 @@ def process_bug_report(repo_name, repo_owner, issue_number):
     summary, description = get_summ_description(
         repo_name=repo_name, repo_owner=repo_owner, issue_number=issue_number
     )
+
+    print(summary,description)
+    real_summary = summary
     stack_trace = extract_stack_traces(description)
     summary_processed = process_bug_entity(summary)
     description_processed = process_bug_entity(description)
@@ -146,14 +149,17 @@ def process_bug_report(repo_name, repo_owner, issue_number):
     pos_description = process_bug_pos_taggers(description)
 
     dic = {
+        "real_summary":summary,
         "summary": summary_processed,
         "stack_trace": stack_trace,
         "description": description_processed,
         "pos_tagged_summary": pos_summary,
         "pos_tagged_description": pos_description,
     }
+    
     out_file = open("report.json", "w")
 
+    
     json.dump(dic, out_file, indent=6)
 
     out_file.close()

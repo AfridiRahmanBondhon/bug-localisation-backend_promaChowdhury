@@ -16,9 +16,7 @@ def find_test_methods(java_code):
     for path, node in tree:
         if isinstance(node, javalang.tree.ClassDeclaration) and "Test" in node.name:
             for method in node.methods:
-                if any(
-                    annotation.name == "Test" for annotation in method.annotations
-                ) or method.name.startswith("test"):
+                if any(annotation.name == "Test" for annotation in method.annotations):
                     test_methods.append(method.name)
 
     return test_methods
@@ -43,13 +41,17 @@ def find_test_classes_and_methods(folder_path):
 def get_all_test_methods():
     folder_path = "/Users/promachowdhury/Desktop/fast-projects/bug-localisation-backend/project/src/test/"
     test_classes_and_methods = find_test_classes_and_methods(folder_path)
+    print(test_classes_and_methods.keys())
     test_all_methods = []
     for java_file, test_methods in test_classes_and_methods.items():
         # print(f"Java file: {java_file[0:len(java_file)-5]}")
         methods = []
         for method in test_methods:
             test_all_methods.append(
-                {"class": java_file[0 : len(java_file) - 5], "method": method}
+                {
+                    "class": java_file,
+                    "method": method,
+                }
             )
 
     return test_all_methods
@@ -100,8 +102,8 @@ def process_test(test):
     return getCoverage(test)
 
 
-def getTestStats():
-    tests = get_all_test_methods()
+def getTestStats(tests):
+    # tests = get_all_test_methods()
     test_stats = []
 
     for test in tests:
@@ -110,6 +112,8 @@ def getTestStats():
 
     # with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
     #     test_stats = list(executor.map(process_test, tests[:5]))
+    with open("test_res.json", "w") as json_file:
+        json.dump(test_stats, json_file)
     return test_stats
     # with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
     #     futures = [executor.submit(getCoverage, test) for test in tests[:5]]
@@ -121,6 +125,4 @@ def getTestStats():
     #             test_stats.extend(result)
     #         except Exception as e:
     #             test_stats.extend({"Error": str(e)})
-    with open("test_res.json", "w") as json_file:
-        json.dump(test_stats, json_file)
-    return test_stats
+  

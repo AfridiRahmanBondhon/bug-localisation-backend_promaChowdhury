@@ -39,27 +39,25 @@ def main():
         )
         score_dict.append({"file": files[i], "score": score})
     sorted_array = sorted(score_dict, key=lambda item: item["score"], reverse=True)
-    return sorted_array
+    out_file = open("evaluation.json", "w")
+
+    json.dump(
+        {"summary": bug_reports["real_summary"], "result": sorted_array},
+        out_file,
+        indent=6,
+    )
+
+    out_file.close()
+    return {"summary": bug_reports["real_summary"], "result": sorted_array}
 
 
 def evaluate(repo_name, repo_owner, issue_number):
-    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
-        future_bug_report = executor.submit(
-            process_bug_report, repo_name, repo_owner, issue_number
-        )
-        future_src = executor.submit(process_src)
-
-        concurrent.futures.wait([future_bug_report, future_src])
-
-    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
-        futures = [
-            executor.submit(stack_trace),
-            executor.submit(token_matching),
-            executor.submit(vsm_similarity),
-            executor.submit(semantic_similarity),
-        ]
-
-        concurrent.futures.wait(futures)
+    process_bug_report(repo_name, repo_owner, issue_number)
+    process_src()
+    stack_trace(),
+    token_matching()
+    vsm_similarity()
+    semantic_similarity()
 
     return main()
 
