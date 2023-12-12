@@ -125,7 +125,7 @@ def parse_test_cdata_from_file(file_path, class_path):
 
 
 def get_all_test_methods():
-    folder_path = "/Users/promachowdhury/Desktop/fast-projects/bug-localisation-backend/project/src/test/"
+    folder_path = "/Users/promachowdhury/Desktop/fast-projects/bug-localisation-backend/bug/project/src/test/"
     test_classes_and_methods = find_test_classes_and_methods(folder_path)
     print(test_classes_and_methods.keys())
     test_all_methods = []
