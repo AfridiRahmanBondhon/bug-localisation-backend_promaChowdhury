@@ -33,7 +33,7 @@ def extract_stack_traces(description):
 
 
 def get_summ_description(repo_name, repo_owner, issue_number):
-    github_token = "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"
+    github_token = "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"
     g = Github(github_token)
 
     repo = g.get_repo(f"{repo_owner}/{repo_name}")

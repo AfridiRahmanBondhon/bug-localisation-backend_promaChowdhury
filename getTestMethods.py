@@ -74,6 +74,22 @@ def run_jacoco(test_class, test_method):
     )
 
 
+def parse_test_results_from_file(file_path):
+    with open(file_path, "r") as file:
+        file_content = file.read()
+
+    runs_pattern = re.compile(r"Tests run: (\d+)")
+    failures_pattern = re.compile(r"Failures: (\d+)")
+
+    runs_match = runs_pattern.search(file_content)
+    failures_match = failures_pattern.search(file_content)
+
+    runs = int(runs_match.group(1)) if runs_match else None
+    failures = int(failures_match.group(1)) if failures_match else None
+
+    return runs, failures
+
+
 def getCoverage(test):
     run_jacoco(test_class=test["class"], test_method=test["method"])
     xml_file_path = "/Users/promachowdhury/Desktop/fast-projects/bug-localisation-backend/project/target/site/jacoco/jacoco.xml"
@@ -93,8 +109,17 @@ def getCoverage(test):
             "missed": missed,
             "covered": covered,
         }
-
-    return {"class": test["class"], "method": test["method"], "coverage": coverage_dict}
+    file_path = f'/Users/promachowdhury/Desktop/fast-projects/bug-localisation-backend/project/target/surefire-reports/{test["class"]}.txt'
+    file_path_cdata = f'/Users/promachowdhury/Desktop/fast-projects/bug-localisation-backend/project/target/surefire-reports/TEST-{test["class"]}.xml'
+    class_name = test["class"].replace(".", "/")
+    class_path = f"/Users/promachowdhury/Desktop/fast-projects/bug-localisation-backend/project/src/test/java/{class_name}.java"
+    runs, failures = parse_test_results_from_file(file_path)
+    return {
+        "class": test["class"],
+        "method": test["method"],
+        "coverage": coverage_dict,
+        "failure": failures,
+    }
 
 
 def process_test(test):
@@ -125,4 +150,3 @@ def getTestStats(tests):
     #             test_stats.extend(result)
     #         except Exception as e:
     #             test_stats.extend({"Error": str(e)})
-  

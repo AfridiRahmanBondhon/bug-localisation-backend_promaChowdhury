@@ -1,0 +1,325 @@
+{
+      "summary": "Replacing an element with itself causes problems.",
+      "result": [
+            {
+                  "file": "org.jsoup.select.Elements.java",
+                  "score": 0.6905862163251728
+            },
+            {
+                  "file": "org.jsoup.nodes.Node.java",
+                  "score": 0.6771351216029571
+            },
+            {
+                  "file": "org.jsoup.nodes.Element.java",
+                  "score": 0.6438124197078572
+            },
+            {
+                  "file": "org.jsoup.parser.HtmlTreeBuilder.java",
+                  "score": 0.601043287473094
+            },
+            {
+                  "file": "org.jsoup.parser.StreamParser.java",
+                  "score": 0.5969864644061011
+            },
+            {
+                  "file": "org.jsoup.nodes.Document.java",
+                  "score": 0.5711647413000039
+            },
+            {
+                  "file": "org.jsoup.safety.Cleaner.java",
+                  "score": 0.5672621772196371
+            },
+            {
+                  "file": "org.jsoup.parser.CharacterReader.java",
+                  "score": 0.5655834423745741
+            },
+            {
+                  "file": "org.jsoup.nodes.Attributes.java",
+                  "score": 0.5562685944234972
+            },
+            {
+                  "file": "org.jsoup.select.NodeTraversor.java",
+                  "score": 0.5495481282362507
+            },
+            {
+                  "file": "org.jsoup.helper.Validate.java",
+                  "score": 0.5491891576756157
+            },
+            {
+                  "file": "org.jsoup.nodes.FormElement.java",
+                  "score": 0.5482461011734295
+            },
+            {
+                  "file": "org.jsoup.select.NodeVisitor.java",
+                  "score": 0.5462656687773756
+            },
+            {
+                  "file": "org.jsoup.helper.W3CDom.java",
+                  "score": 0.5451540261750796
+            },
+            {
+                  "file": "org.jsoup.parser.HtmlTreeBuilderState.java",
+                  "score": 0.5442974219548267
+            },
+            {
+                  "file": "org.jsoup.select.Evaluator.java",
+                  "score": 0.5408474878173902
+            },
+            {
+                  "file": "org.jsoup.Connection.java",
+                  "score": 0.5384873716266753
+            },
+            {
+                  "file": "org.jsoup.parser.TreeBuilder.java",
+                  "score": 0.5378656472149747
+            },
+            {
+                  "file": "org.jsoup.nodes.NodeIterator.java",
+                  "score": 0.5371532990317693
+            },
+            {
+                  "file": "org.jsoup.parser.Parser.java",
+                  "score": 0.5367026819162086
+            },
+            {
+                  "file": "org.jsoup.parser.Token.java",
+                  "score": 0.5352614074702418
+            },
+            {
+                  "file": "org.jsoup.select.Selector.java",
+                  "score": 0.5346418816065508
+            },
+            {
+                  "file": "org.jsoup.select.StructuralEvaluator.java",
+                  "score": 0.533915421281113
+            },
+            {
+                  "file": "HttpConnection.java",
+                  "score": 0.5318443099863939
+            },
+            {
+                  "file": "org.jsoup.internal.StringUtil.java",
+                  "score": 0.529373484869873
+            },
+            {
+                  "file": "org.jsoup.parser.Tokeniser.java",
+                  "score": 0.5290742055721543
+            },
+            {
+                  "file": "org.jsoup.Jsoup.java",
+                  "score": 0.5273382459875962
+            },
+            {
+                  "file": "org.jsoup.parser.TokenQueue.java",
+                  "score": 0.5254434883279278
+            },
+            {
+                  "file": "org.jsoup.helper.DataUtil.java",
+                  "score": 0.5245742333021151
+            },
+            {
+                  "file": "org.jsoup.nodes.NodeUtils.java",
+                  "score": 0.5231147893386764
+            },
+            {
+                  "file": "org.jsoup.nodes.Entities.java",
+                  "score": 0.5167677059362186
+            },
+            {
+                  "file": "org.jsoup.nodes.Attribute.java",
+                  "score": 0.5145753130425629
+            },
+            {
+                  "file": "org.jsoup.select.QueryParser.java",
+                  "score": 0.5142672030864528
+            },
+            {
+                  "file": "org.jsoup.helper.UrlBuilder.java",
+                  "score": 0.5129947235021065
+            },
+            {
+                  "file": "org.jsoup.safety.Safelist.java",
+                  "score": 0.5123845249750708
+            },
+            {
+                  "file": "org.jsoup.nodes.LeafNode.java",
+                  "score": 0.51171486450031
+            },
+            {
+                  "file": "org.jsoup.nodes.Range.java",
+                  "score": 0.5091651135036818
+            },
+            {
+                  "file": "org.jsoup.SerializationException.java",
+                  "score": 0.5058759634969228
+            },
+            {
+                  "file": "org.jsoup.select.NodeFilter.java",
+                  "score": 0.5039083186408444
+            },
+            {
+                  "file": "org.jsoup.examples.HtmlToPlainText.java",
+                  "score": 0.5000626978192345
+            },
+            {
+                  "file": "org.jsoup.parser.Tag.java",
+                  "score": 0.49686103730778175
+            },
+            {
+                  "file": "org.jsoup.select.CombiningEvaluator.java",
+                  "score": 0.4935954835203096
+            },
+            {
+                  "file": "org.jsoup.helper.ValidationException.java",
+                  "score": 0.48372035347699754
+            },
+            {
+                  "file": "org.jsoup.select.Collector.java",
+                  "score": 0.48322814242673123
+            },
+            {
+                  "file": "org.jsoup.parser.XmlTreeBuilder.java",
+                  "score": 0.4820090204227889
+            },
+            {
+                  "file": "org.jsoup.helper.AuthenticationHandler.java",
+                  "score": 0.479974918698594
+            },
+            {
+                  "file": "org.jsoup.nodes.Comment.java",
+                  "score": 0.47084028492477414
+            },
+            {
+                  "file": "org.jsoup.internal.Functions.java",
+                  "score": 0.4629914522074216
+            },
+            {
+                  "file": "org.jsoup.nodes.XmlDeclaration.java",
+                  "score": 0.46217335408393456
+            },
+            {
+                  "file": "org.jsoup.internal.ControllableInputStream.java",
+                  "score": 0.46034379965752337
+            },
+            {
+                  "file": "org.jsoup.internal.Normalizer.java",
+                  "score": 0.45911446866865024
+            },
+            {
+                  "file": "module-info.java",
+                  "score": 0.4525543402933588
+            },
+            {
+                  "file": "org.jsoup.internal.SharedConstants.java",
+                  "score": 0.4500411280078016
+            },
+            {
+                  "file": "org.jsoup.nodes.TextNode.java",
+                  "score": 0.4473037981499769
+            },
+            {
+                  "file": "org.jsoup.parser.TokeniserState.java",
+                  "score": 0.44338290077476766
+            },
+            {
+                  "file": "org.jsoup.parser.ParseSettings.java",
+                  "score": 0.4394424029225163
+            },
+            {
+                  "file": "org.jsoup.helper.RequestAuthenticator.java",
+                  "score": 0.435295195428241
+            },
+            {
+                  "file": "org.jsoup.helper.ChangeNotifyingArrayList.java",
+                  "score": 0.43461402827353424
+            },
+            {
+                  "file": "org.jsoup.helper.CookieUtil.java",
+                  "score": 0.4312099371744333
+            },
+            {
+                  "file": "org.jsoup.nodes.PseudoTextElement.java",
+                  "score": 0.4287915895031271
+            },
+            {
+                  "file": "org.jsoup.helper.RequestAuthHandler.java",
+                  "score": 0.42690078468198583
+            },
+            {
+                  "file": "org.jsoup.nodes.EntitiesData.java",
+                  "score": 0.42295855088348056
+            },
+            {
+                  "file": "org.jsoup.parser.ParseError.java",
+                  "score": 0.42241354447653734
+            },
+            {
+                  "file": "org.jsoup.nodes.DataNode.java",
+                  "score": 0.41801775661242824
+            },
+            {
+                  "file": "org.jsoup.nodes.CDataNode.java",
+                  "score": 0.4151988599362492
+            },
+            {
+                  "file": "org.jsoup.parser.ParseErrorList.java",
+                  "score": 0.40524971943170235
+            },
+            {
+                  "file": "org.jsoup.UncheckedIOException.java",
+                  "score": 0.4005500492469096
+            },
+            {
+                  "file": "org.jsoup.nodes.DocumentType.java",
+                  "score": 0.3829147502636591
+            },
+            {
+                  "file": "org.jsoup.HttpStatusException.java",
+                  "score": 0.3777598015346888
+            },
+            {
+                  "file": "org.jsoup.UnsupportedMimeTypeException.java",
+                  "score": 0.37558594943842105
+            },
+            {
+                  "file": "org.jsoup.examples.ListLinks.java",
+                  "score": 0.3630984758054932
+            },
+            {
+                  "file": "org.jsoup.examples.Wikipedia.java",
+                  "score": 0.33915991042743204
+            },
+            {
+                  "file": "org.jsoup.package-info.java",
+                  "score": 0.2
+            },
+            {
+                  "file": "org.jsoup.nodes.package-info.java",
+                  "score": 0.2
+            },
+            {
+                  "file": "org.jsoup.internal.package-info.java",
+                  "score": 0.2
+            },
+            {
+                  "file": "org.jsoup.parser.package-info.java",
+                  "score": 0.2
+            },
+            {
+                  "file": "org.jsoup.safety.package-info.java",
+                  "score": 0.2
+            },
+            {
+                  "file": "org.jsoup.examples.package-info.java",
+                  "score": 0.2
+            },
+            {
+                  "file": "org.jsoup.select.package-info.java",
+                  "score": 0.2
+            },
+            {
+                  "file": "org.jsoup.helper.package-info.java",
+                  "score": 0.2
+            }
+      ]
+}
